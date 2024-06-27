@@ -475,7 +475,7 @@ void main()\n\
 #endif\n\
 	\n\
 	vec4 mainTexColor = (ENABLE_TEXTURE_SAMPLING && polyEnableTexture) ? texture(texRenderObject, vtxTexCoord) : vec4(1.0, 1.0, 1.0, 1.0);\n\
-	vec3 newToonColor = texture(texToonTable, vec2(vtxColor.r,  0.5)).rgb;\n\
+	vec3 newToonColor = texture(texToonTable, vec2(vtxColor.r,  0.0)).rgb;\n\
 	\n\
 	if (!texSingleBitAlpha)\n\
 	{\n\
@@ -624,11 +624,11 @@ void main()\n\
 	polyIDInfo[4] = texture(texInPolyID, texCoord[4]);\n\
 	\n\
 	vec4 edgeColor[5];\n\
-	edgeColor[0] = texture(texEdgeColor, vec2(polyIDInfo[0].r, 0.5));\n\
-	edgeColor[1] = texture(texEdgeColor, vec2(polyIDInfo[1].r, 0.5));\n\
-	edgeColor[2] = texture(texEdgeColor, vec2(polyIDInfo[2].r, 0.5));\n\
-	edgeColor[3] = texture(texEdgeColor, vec2(polyIDInfo[3].r, 0.5));\n\
-	edgeColor[4] = texture(texEdgeColor, vec2(polyIDInfo[4].r, 0.5));\n\
+	edgeColor[0] = texture(texEdgeColor, vec2(polyIDInfo[0].r, 0.0));\n\
+	edgeColor[1] = texture(texEdgeColor, vec2(polyIDInfo[1].r, 0.0));\n\
+	edgeColor[2] = texture(texEdgeColor, vec2(polyIDInfo[2].r, 0.0));\n\
+	edgeColor[3] = texture(texEdgeColor, vec2(polyIDInfo[3].r, 0.0));\n\
+	edgeColor[4] = texture(texEdgeColor, vec2(polyIDInfo[4].r, 0.0));\n\
 	\n\
 	bool isWireframe[5];\n\
 	isWireframe[0] = bool(polyIDInfo[0].g);\n\
@@ -744,11 +744,11 @@ void main()\n\
 	float fogMixWeight = 0.0;\n\
 	if (FOG_STEP == 0)\n\
 	{\n\
-		fogMixWeight = texture( texFogDensityTable, vec2((inFragDepth <= FOG_OFFSETF) ? 0.0 : 1.0, 0.5)).r;\n\
+		fogMixWeight = texture( texFogDensityTable, vec2((inFragDepth <= FOG_OFFSETF) ? 0.0 : 1.0, 0.0)).r;\n\
 	}\n\
 	else\n\
 	{\n\
-		fogMixWeight = texture( texFogDensityTable, vec2((inFragDepth * (1024.0/float(FOG_STEP))) + (((-float(FOG_OFFSET)/float(FOG_STEP)) - 0.5) / 32.0), 0.5)).r;\n\
+		fogMixWeight = texture( texFogDensityTable, vec2((inFragDepth * (1024.0/float(FOG_STEP))) + (((-float(FOG_OFFSET)/float(FOG_STEP)) - 0.5) / 32.0), 0.0)).r;\n\
 	}\n\
 	\n\
 	if (polyEnableFog)\n\
