@@ -53,7 +53,7 @@ static inline void glDrawBuffer(GLenum attach) {
         }
         case GL_COLOR_ATTACHMENT2: {
             GLenum bufs[3] = {GL_NONE, GL_NONE, attach };
-            glDrawBuffers(4, bufs);
+            glDrawBuffers(3, bufs);
             break;
         }
         case GL_COLOR_ATTACHMENT3: {
