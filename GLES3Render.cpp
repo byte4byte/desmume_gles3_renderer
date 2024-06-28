@@ -2738,7 +2738,6 @@ Render3DError OpenGLESRenderer_3_0::InitExtensions()
 		
 		if (maxColorAttachments >= 4)
 		{
-            glGetError();
 			error = this->CreateFBOs();
 			if (error != OGLERROR_NOERR)
 			{
@@ -3286,7 +3285,6 @@ Render3DError OpenGLESRenderer_3_0::CreateGeometryPrograms()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glGetError();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 32, 1, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, NULL);
 	
 	glGenTextures(1, &OGLRef.texEdgeColorTableID);
@@ -3303,7 +3301,6 @@ Render3DError OpenGLESRenderer_3_0::CreateGeometryPrograms()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glGetError();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, 32, 1, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, NULL);
 	glActiveTexture(GL_TEXTURE0);
 	

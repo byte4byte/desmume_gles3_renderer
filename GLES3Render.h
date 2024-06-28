@@ -28,7 +28,7 @@
 #include "render3D.h"
 #include "types.h"
 
-#ifdef __ANDROID__
+#if defined(__ANDROID__) || defined(__ANGLE__) || defined(__linux__)
     #define _NO_SDL_TYPES
     #include <GLES3/gl3.h>
     #include <GLES3/gl3ext.h>
@@ -47,11 +47,6 @@
     #define OGLEXT(procPtr, func)
     #define INITOGLEXT(procPtr, func)
     #define EXTERNOGLEXT(procPtr, func)
-#elif defined(__ANGLE__)
-
-    #define OGLEXT(procPtr, func)		procPtr func = NULL;
-	#define INITOGLEXT(procPtr, func)	func = (procPtr)eglGetProcAddress(#func);
-	#define EXTERNOGLEXT(procPtr, func)	extern procPtr func;
 #endif
 
 #define OGLRENDER_VERT_INDEX_BUFFER_COUNT	(CLIPPED_POLYLIST_SIZE * 6)
