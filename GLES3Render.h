@@ -460,6 +460,10 @@ private:
 	Render3DError _FlushFramebufferFlipAndConvertOnCPU(const Color4u8 *__restrict srcFramebuffer,
 													   Color4u8 *__restrict dstFramebufferMain, u16 *__restrict dstFramebuffer16,
 													   bool doFramebufferFlip, bool doFramebufferConvert);
+
+    Render3DError _FlushFramebufferFlipAndConvertOnCPU_RGBA(const Color4u8 *__restrict srcFramebuffer,
+													   Color4u8 *__restrict dstFramebufferMain, u16 *__restrict dstFramebuffer16,
+													   bool doFramebufferFlip, bool doFramebufferConvert);
 	
 protected:
 	// OpenGL-specific References
@@ -492,6 +496,9 @@ protected:
 	OGLGeometryFlags _geometryProgramFlags;
 	OGLFogProgramKey _fogProgramKey;
 	std::map<u32, OGLFogShaderID> _fogProgramMap;
+
+    GLint readFormat;
+    GLint readType;
 	
 	CACHE_ALIGN OGLRenderStates _pendingRenderStates;
 	
