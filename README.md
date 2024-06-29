@@ -1,7 +1,7 @@
 static bool setupEGL(int w, int h) {
       // EGL config attributes
       const EGLint confAttr[] = {
-              EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
+              EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
               EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
               EGL_RED_SIZE,   8,
               EGL_GREEN_SIZE, 8,
@@ -13,8 +13,7 @@ static bool setupEGL(int w, int h) {
 
       // EGL context attributes
       const EGLint ctxAttr[] = {
-              EGL_CONTEXT_MAJOR_VERSION, 3,
-              EGL_CONTEXT_MINOR_VERSION, 0,
+              EGL_CONTEXT_CLIENT_VERSION, 3, 
               EGL_NONE
       };
 
@@ -35,7 +34,7 @@ static bool setupEGL(int w, int h) {
         return false;
       }
 
-      eglBindAPI(EGL_OPENGL_API);
+      eglBindAPI(EGL_OPENGL_ES_API);
 
       // choose the first config, i.e. best config
       eglChooseConfig(eglDisp, confAttr, &eglConf, 1, &numConfigs);
