@@ -1,3 +1,6 @@
+#include <EGL/egl.h>
+#include "GLES3Render.h"
+
 static bool setupEGL(int w, int h) {
       // EGL config attributes
       const EGLint confAttr[] = {
