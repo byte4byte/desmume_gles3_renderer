@@ -2862,8 +2862,8 @@ Render3DError OpenGLESRenderer_3_0::InitExtensions()
 	if (this->isVAOSupported) this->CreateVAOs();
 	
 	// Set rendering support flags based on driver features.
-	this->willFlipAndConvertFramebufferOnGPU = false;
-	this->willFlipOnlyFramebufferOnGPU = false;
+	this->willFlipAndConvertFramebufferOnGPU = false; // get much better performance with this off on android
+	this->willFlipOnlyFramebufferOnGPU = this->willFlipAndConvertFramebufferOnGPU;
 	this->_deviceInfo.isEdgeMarkSupported = this->isVBOSupported && this->isFBOSupported;
 	this->_deviceInfo.isFogSupported = this->isVBOSupported && this->isFBOSupported;
 	this->_deviceInfo.isTextureSmoothingSupported = true;
@@ -4232,6 +4232,11 @@ Render3DError OpenGLESRenderer_3_0::ReadBackPixels()
 				glUseProgram(convertProgramID);
 				glDrawBuffer(GL_WORKING_ATTACHMENT_ID);
 				glReadBuffer(GL_WORKING_ATTACHMENT_ID);
+
+				glActiveTexture(GL_TEXTURE0 + OGLTextureUnitID_GColor);
+				glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, (GLsizei)this->_framebufferWidth, (GLsizei)this->_framebufferHeight);
+				glActiveTexture(GL_TEXTURE0);
+
 				this->_lastTextureDrawTarget = OGLTextureUnitID_FinalColor;
 			}
 			else
@@ -4240,6 +4245,11 @@ Render3DError OpenGLESRenderer_3_0::ReadBackPixels()
 				glUseProgram(convertProgramID);
 				glDrawBuffer(GL_COLOROUT_ATTACHMENT_ID);
 				glReadBuffer(GL_COLOROUT_ATTACHMENT_ID);
+
+				glActiveTexture(GL_TEXTURE0 + OGLTextureUnitID_FinalColor);
+				glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, (GLsizei)this->_framebufferWidth, (GLsizei)this->_framebufferHeight);
+				glActiveTexture(GL_TEXTURE0);
+
 				this->_lastTextureDrawTarget = OGLTextureUnitID_GColor;
 			}
 		}
