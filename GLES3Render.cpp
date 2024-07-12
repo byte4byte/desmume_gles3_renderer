@@ -3285,7 +3285,7 @@ Render3DError OpenGLESRenderer_3_0::CreateGeometryPrograms()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 32, 1, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 32, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	
 	glGenTextures(1, &OGLRef.texEdgeColorTableID);
 	glBindTexture(GL_TEXTURE_2D, OGLRef.texEdgeColorTableID);
@@ -5405,7 +5405,20 @@ Render3DError OpenGLESRenderer_3_0::BeginRender(const GFX3D_State &renderState, 
 	{
 		glActiveTexture(GL_TEXTURE0 + OGLTextureUnitID_LookupTable);
 		glBindTexture(GL_TEXTURE_2D, OGLRef.texToonTableID);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 32, 1, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, renderState.toonTable16);
+
+		unsigned char toonColor[32*4];
+		{
+			size_t cnt = 0;
+			for (size_t i = 0; i < 32; i++)
+			{
+				toonColor[cnt++] = ((renderState.toonTable16[i]      ) & 0x1F) << 3;
+				toonColor[cnt++] = ((renderState.toonTable16[i] >>  5) & 0x1F) << 3;
+				toonColor[cnt++] = ((renderState.toonTable16[i] >> 10) & 0x1F) << 3;
+				toonColor[cnt++] = 255;
+			}
+		}
+
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 32, 1, GL_RGBA, GL_UNSIGNED_BYTE, toonColor);
 	}
 	
 	glReadBuffer(GL_COLOROUT_ATTACHMENT_ID);
