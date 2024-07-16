@@ -311,11 +311,11 @@ struct OGLRenderRef
 	
 	GLuint vertexEdgeMarkShaderID;
 	GLuint vertexFogShaderID;
-	GLuint vertexFramebufferOutput6665ShaderID;
-	GLuint vertexFramebufferOutput8888ShaderID;
+	GLuint vertexFramebufferOutput6665ShaderID[2];
+	GLuint vertexFramebufferOutput8888ShaderID[2];
 	GLuint fragmentEdgeMarkShaderID;
-	GLuint fragmentFramebufferRGBA6665OutputShaderID;
-	GLuint fragmentFramebufferRGBA8888OutputShaderID;
+	GLuint fragmentFramebufferRGBA6665OutputShaderID[2];
+	GLuint fragmentFramebufferRGBA8888OutputShaderID[2];
 	GLuint programEdgeMarkID;
 	GLuint programFramebufferRGBA6665OutputID[2];
 	GLuint programFramebufferRGBA8888OutputID[2];
