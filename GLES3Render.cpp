@@ -3814,8 +3814,8 @@ void OpenGLESRenderer_3_0::DestroyFramebufferOutput6665Programs()
 	
 	if (OGLRef.programFramebufferRGBA6665OutputID[1] != 0)
 	{
-		glDetachShader(OGLRef.programFramebufferRGBA6665OutputID[1], OGLRef.vertexFramebufferOutput6665ShaderID[0]);
-		glDetachShader(OGLRef.programFramebufferRGBA6665OutputID[1], OGLRef.fragmentFramebufferRGBA6665OutputShaderID[0]);
+		glDetachShader(OGLRef.programFramebufferRGBA6665OutputID[1], OGLRef.vertexFramebufferOutput6665ShaderID[1]);
+		glDetachShader(OGLRef.programFramebufferRGBA6665OutputID[1], OGLRef.fragmentFramebufferRGBA6665OutputShaderID[1]);
 		glDeleteProgram(OGLRef.programFramebufferRGBA6665OutputID[1]);
 		OGLRef.programFramebufferRGBA6665OutputID[1] = 0;
 	}
@@ -3910,8 +3910,8 @@ void OpenGLESRenderer_3_0::DestroyFramebufferOutput8888Programs()
 	
 	if (OGLRef.programFramebufferRGBA8888OutputID[1] != 0)
 	{
-		glDetachShader(OGLRef.programFramebufferRGBA8888OutputID[1], OGLRef.vertexFramebufferOutput8888ShaderID[0]);
-		glDetachShader(OGLRef.programFramebufferRGBA8888OutputID[1], OGLRef.fragmentFramebufferRGBA8888OutputShaderID[0]);
+		glDetachShader(OGLRef.programFramebufferRGBA8888OutputID[1], OGLRef.vertexFramebufferOutput8888ShaderID[1]);
+		glDetachShader(OGLRef.programFramebufferRGBA8888OutputID[1], OGLRef.fragmentFramebufferRGBA8888OutputShaderID[1]);
 		glDeleteProgram(OGLRef.programFramebufferRGBA8888OutputID[1]);
 		OGLRef.programFramebufferRGBA8888OutputID[1] = 0;
 	}
@@ -4245,20 +4245,6 @@ Render3DError OpenGLESRenderer_3_0::ReadBackPixels()
 				glUseProgram(convertProgramID);
 				glDrawBuffer(GL_WORKING_ATTACHMENT_ID);
 				glReadBuffer(GL_WORKING_ATTACHMENT_ID);
-
-				/*std::map<u32, OGLFogShaderID>::iterator it = this->_fogProgramMap.find(this->_fogProgramKey.key);
-				if (it == this->_fogProgramMap.end())
-				{
-					Render3DError error = this->CreateFogProgram(this->_fogProgramKey, FogVtxShader_100, FogFragShader_100);
-					if (error != OGLERROR_NOERR)
-					{
-						return error;
-					}
-				}
-		
-				OGLFogShaderID shaderID = this->_fogProgramMap[this->_fogProgramKey.key];
-				glUseProgram(shaderID.program);*/
-				
 				this->_lastTextureDrawTarget = OGLTextureUnitID_FinalColor;
 			}
 			else
